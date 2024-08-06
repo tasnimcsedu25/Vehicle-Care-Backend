@@ -1,19 +1,4 @@
-// var mysql =require("mysql");
-// var con=mysql.createConnection({
-//     host:"localhost",
-//     user:"root",
-//     password:"",
-//     database:"Vehicle Care"
-// });
-// con.connect(function(error){
-//     if(error)throw error;
-//     console.log("connected");
-//     con.query("select * from user",function(error,result){
-//         if(error)throw error;
-//         console.log(result[0]);
-//     });
 
-// });
 const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
@@ -65,12 +50,14 @@ app.get('/users/:UserID', (req, res) => {
 // Add a new user
 
 app.post('/users', (req, res) => {
+    console.log(req.body);
     const newUser = req.body;
     const sql = 'INSERT INTO user (UserID, `User Name`, Email, Password) VALUES (?, ?, ?, ?)';
-    db.query(sql, [newUser.UserID, newUser['User Name'], newUser.Email, newUser.Password], (err, result) => {
+    db.query(sql, [newUser.UserID, newUser['UserName'], newUser.Email, newUser.Password], (err, result) => {
         if (err) throw err;
         res.json(result);
     });
+    
 });
 
 
@@ -78,7 +65,7 @@ app.post('/users', (req, res) => {
 app.put('/users/:UserID', (req, res) => {
     const updatedUser = req.body;
     const sql = 'UPDATE user SET `User Name` = ?, Email = ?, Password = ? WHERE UserID = ?';
-    db.query(sql, [updatedUser['User Name'], updatedUser.Email, updatedUser.Password, req.params.UserID], (err, result) => {
+    db.query(sql, [updatedUser['UserName'], updatedUser.Email, updatedUser.Password, req.params.UserID], (err, result) => {
         if (err) throw err;
         res.json(result);
     });
