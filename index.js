@@ -99,7 +99,7 @@ app.post('/vehicles', (req, res) => {
 
 app.put('/vehicles/:vehicleID', (req, res) => {
     const updatedVehicle = req.body;
-    const sql = 'UPDATE vehicles SET model = ?, engineNumber = ?, chesisNumber = ? WHERE vehicleID = ?';
+    const sql = 'UPDATE vehicle SET model = ?, engineNumber = ?, chesisNumber = ? WHERE vehicleID = ?';
     db.query(sql, [updatedVehicle.model, updatedVehicle.engineNumber, updatedVehicle.chesisNumber, req.params.vehicleID], (err, result) => {
         if (err) throw err;
         res.json(result);
@@ -107,7 +107,7 @@ app.put('/vehicles/:vehicleID', (req, res) => {
 });
 
 app.delete('/vehicles/:vehicleID', (req, res) => {
-    const sql = 'DELETE FROM vehicles WHERE vehicleID = ?';
+    const sql = 'DELETE FROM vehicle WHERE vehicleID = ?';
     db.query(sql, [req.params.vehicleID], (err, result) => {
         if (err) throw err;
         res.json(result);
